@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro'
+import GameData from '../utils/GameData.js'
+// import GameButton from '../components/GameButton.jsx'
+import UserMove from '../components/UserMove'
+import Header from '../components/Header.astro'
+import ComputerMove from '../components/ComputerMove.jsx'
+---
+
+<Layout>
+	<main class="space-around relative flex min-h-screen flex-col">
+		<section id="scoreBoard" class="mx-auto mt-12 w-[700px]">
+			<Header />
+		</section>
+
+		<section id="gameBoard" class="mt-20 flex justify-between">
+			<div style="border: 2px green solid" class="h-[300px] w-[300px] cursor-pointer text-center">
+				<h2 class="mb-10 text-2xl tracking-wider">YOU PICKED</h2>
+				<a href="../">
+					<UserMove client:only="react" />
+				</a>
+			</div>
+			<div style="border: 2px fuchsia solid" class="h-[300px] w-[300px] cursor-pointer text-center">
+				<h2 class="mb-10 text-2xl tracking-wider">THE HOUSE PICKED</h2>
+				<ComputerMove data-id="computer-move" client:only="react" />
+			</div>
+		</section>
+		<section id="rulesButton" class="justify-self-end">rules button</section>
+		<!-- <section class="absolute inset-0 bg-black/50">rules overlay</section> -->
+	</main>
+</Layout>
+<style>
+	#scoreBoard {
+		width: 100%;
+		max-width: 700px;
+		margin-inline: auto;
+	}
+	#gameBoard {
+		--width: 700px;
+		width: 100%;
+		max-width: var(--width);
+		margin-inline: auto;
+	}
+	#rulesButton {
+		align-self: flex-end;
+	}
+</style>
+<script>
+	await delay(2000)
+	console.log('dom loaded')
+
+	const ReactElement = document.querySelector('[data-id="computer-move"]')
+	console.log(ReactElement)
+
+	let width = 700
+	const gameBoard = document.querySelector('#gameBoard')
+	gameBoard.addEventListener('click', () => {
+		width = width + 10
+		gameBoard.setAttribute('style', `--width: ${width}px`)
+	})
+
+	async function delay(time = 120) {
+		await new Promise((resolve) => setTimeout(resolve, time))
+	}
+</script>

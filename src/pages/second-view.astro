@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro'
+import GameButton from '../components/GameButton.jsx'
+import Header from '../components/Header.astro'
+---
+
+<Layout>
+	<main class="relative grid min-h-screen grid-cols-9 grid-rows-6">
+		<section id="scoreBoard" class="col-start-3 col-end-8 row-start-1 row-end-3 p-10">
+			<Header />
+		</section>
+		<section
+			id="gameBoard"
+			class="col-start-4 col-end-7 row-start-3 row-end-6 flex justify-between"
+		>
+			<div class="h-[300px] w-[300px] cursor-pointer transition-all ease-in" transition:name="rock">
+				<a href="../">
+					<GameButton
+						moveDetails={{
+							moveName: 'Rock',
+							moveId: function () {
+								return this.moveName.toLowerCase()
+							},
+							moveIcon: './icon-rock.svg',
+							moveColor: 'hsl(349, 71%, 52%)',
+							moveColor2: 'hsl(349, 70%, 56%)',
+							beats: ['scissors']
+						}}
+					/>
+				</a>
+			</div>
+		</section>
+		<section class="col-start-8 col-end-9 row-start-6">rules button</section>
+		<!-- <section class="absolute inset-0 bg-black/50">rules overlay</section> -->
+	</main>
+</Layout>

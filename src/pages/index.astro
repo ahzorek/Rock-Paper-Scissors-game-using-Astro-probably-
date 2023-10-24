@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro'
+import GameData from '../utils/GameData.js'
+import GameButton from '../components/GameButton.jsx'
+import Header from '../components/Header.astro'
+---
+
+<Layout>
+	<main class="space-around relative flex min-h-screen flex-col">
+		<section id="scoreBoard" class="mx-auto mt-12 w-[700px]">
+			<Header />
+		</section>
+		<section id="gameBoard" class="flex justify-between">
+			{
+				GameData.map((each) => {
+					return (
+						<div class="aspect-square w-[320px] cursor-pointer">
+							<a href="result">
+								<GameButton client:only="react" moveDetails={each} />
+							</a>
+						</div>
+					)
+				})
+			}
+		</section>
+		<section class="">rules button</section>
+		<!-- <section class="absolute inset-0 bg-black/50">rules overlay</section> -->
+	</main>
+</Layout>
+<style>
+	#scoreBoard {
+		width: 100%;
+		max-width: 700px;
+		margin-inline: auto;
+	}
+	#gameBoard {
+		width: 100%;
+		max-width: 680px;
+		padding: 4rem;
+		aspect-ratio: 1;
+		margin-inline: auto;
+		/* border: orchid 3px dotted; */
+		background-image: url('./bg-triangle.svg');
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	#gameBoard div {
+		place-self: start;
+	}
+	#gameBoard div:nth-child(2) {
+		place-self: end;
+	}
+</style>

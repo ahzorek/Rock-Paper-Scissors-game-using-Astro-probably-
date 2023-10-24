@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro'
+import GameData from '../utils/GameData.js'
+import GameButton from '../components/GameButton.jsx'
+import Header from '../components/Header.astro'
+
+import { useAtom } from 'jotai'
+import { scoreState } from '../utils/scoreState.js'
+
+// function RenderScore() {
+// 	const [score] = useAtom(scoreState)
+// 	return <span>{score}</span>
+// }
+---
+
+<Layout>
+	<main class="relative grid min-h-screen grid-cols-9 grid-rows-6">
+		<section id="scoreBoard" class="col-start-3 col-end-8 row-start-1 row-end-3 p-10">
+			<Header />
+		</section>
+		<section
+			id="gameBoard"
+			class="col-start-4 col-end-7 row-start-3 row-end-6 flex justify-between"
+		>
+			{
+				GameData.map((each) => {
+					return (
+						<div
+							class="aspect-square w-[320px] cursor-pointer transition-all ease-in"
+							transition:name={each.moveId}
+						>
+							<a href="second-view">
+								<GameButton client:only moveDetails={each} />
+							</a>
+						</div>
+					)
+				})
+			}
+		</section>
+		<section class="col-start-8 col-end-9 row-start-6">rules button</section>
+		<!-- <section class="absolute inset-0 bg-black/50">rules overlay</section> -->
+	</main>
+</Layout>
+<style>
+	#gameBoard {
+		/* border: orchid 3px dotted; */
+		background-image: url('./bg-triangle.svg');
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	#gameBoard div {
+		place-self: start;
+	}
+	#gameBoard div:nth-child(2) {
+		place-self: end;
+	}
+</style>

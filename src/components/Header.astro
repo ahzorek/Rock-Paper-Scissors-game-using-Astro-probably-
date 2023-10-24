@@ -1,0 +1,14 @@
+---
+import Score from './Score'
+const GAMENAME = `ROCK PAPER SCISSORS`
+---
+
+<div
+	transition:persist="score"
+	class="border-headerOutline/75 flex w-full justify-between rounded-[20px] border-2 border-solid px-6 py-4"
+>
+	<h1 class="my-2 max-w-[5ch] text-4xl leading-8">{GAMENAME}</h1>
+	<div class="flex w-[160px] flex-col justify-around rounded-lg bg-white">
+		<Score client:only="react" />
+	</div>
+</div>
